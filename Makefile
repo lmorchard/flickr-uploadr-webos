@@ -55,7 +55,7 @@ update: $(UPDATE_TARGETS)
 
 tail-log:
 	echo '----------------------------------------'; echo; \
-	echo 'tail -f /var/log/messages | grep $(APPID)' | novacom -d $(NOVACOM_ID) open tty://
+	echo 'tail -15 -f /var/log/messages | grep $(APPID)' | novacom -d $(NOVACOM_ID) open tty://
 
 kill:
 	-palm-launch -d $(DEVICE) -c $(APPID)

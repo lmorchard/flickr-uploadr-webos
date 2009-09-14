@@ -1,0 +1,7 @@
+[
+	{
+		"title": "FlickrUploadr API Tests",
+		"source": "tests\/FlickrUploadr_API_Tests.js",
+		"testFunction": "FlickrUploadr_API_Tests"
+	},
+]

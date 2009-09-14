@@ -1,0 +1,20 @@
+/**
+ * @fileOverview Test data for FlickrUploadr tests.
+ * @author <a href="http://decafbad.com">l.m.orchard@pobox.com</a>
+ * @version 0.1
+ */
+/*jslint laxbreak: true */
+/*global Mojo, FlickrUploadr, Chain, Class, Ajax */
+FlickrUploadr.TestData = {
+
+    // Fill in this data with the results of a recent API auth sequence.
+    use_test_login: false,
+    test_token: 'USE YOUR OWN TOKEN',
+    test_user: {
+        "nsid": "NSID", 
+        "username": "USERNAME", 
+        "fullname": "FULLNAME"
+    }
+
+
+};
