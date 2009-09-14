@@ -10,14 +10,9 @@ Thumbs.db
 *.ipk
 *.tgz
 xfers/
-php/application/cache/
-php/application/logs/
-php/application/data/
-php/application/tests/log/
-php/application/config/config-local.php
-php/application/config/config-tests.php
 docs/api/
 logs/
 logs/*log
 httpd.conf
 .htaccess
+src/javascripts/*/TestData.js
