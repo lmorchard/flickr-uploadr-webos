@@ -6,6 +6,7 @@
 
 ## v0.0.2
 
+* Better icon
 * Metadata editing
     * Title
     * Description
