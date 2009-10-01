@@ -12,3 +12,7 @@ This is an app for Palm webOS that uploads photos to Flickr.
 
 Because emailing photos to Flickr kind of sucks eggs.
 
+## Credits
+
+* Based at least in part on the official Uploadr:
+    * <http://www.flickr.com/tools/uploadr/>
