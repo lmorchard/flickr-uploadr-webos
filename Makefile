@@ -28,8 +28,8 @@ ifeq ($(TARGET),device)
 else
 	NOVACOM_ID=$(shell novacom -l | grep emulator | head -1 | cut -d' ' -f2)
 	DEVICE=tcp
-	UPDATE_TARGETS=kill-inspector remove restart launch launch-inspector tail-log
-	#UPDATE_TARGETS=remove launch tail-log
+	#UPDATE_TARGETS=kill-inspector remove restart launch launch-inspector tail-log
+	UPDATE_TARGETS=remove launch tail-log
 	TESTS_TARGETS=launch-tests tail-log
 endif
 

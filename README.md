@@ -1,4 +1,4 @@
-# Flickr Uploadr for webOS, v0.0.1
+# Flickr Uploadr for webOS
 
 * l.m.orchard 
 * <http://decafbad.com> 

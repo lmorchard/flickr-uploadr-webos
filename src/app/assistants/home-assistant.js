@@ -51,6 +51,7 @@ HomeAssistant.prototype = (function () { /** @lends HomeAssistant# */
                     visible: true,
                     items: [
                         //Mojo.Menu.editItem,
+                        { label: "Re-authenticate", command: 'MenuReauthenticate' },
                         { label: "About", command: 'MenuAbout' }
                     ]
                 }
@@ -104,10 +105,20 @@ HomeAssistant.prototype = (function () { /** @lends HomeAssistant# */
                 Mojo.log('No auth cookie, pushing auth scene');
                 return this.controller.stageController.pushScene('auth');
             } else {
-                // Token found, so go ahead and use it.
-                Mojo.log('Auth: %j %j', token, user);
+                // Stuff the retained auth token into the API object
                 AppGlobals.api.options.token = token;
                 AppGlobals.api.options.user = user;
+
+                // Check the token and discard if checkToken fails.
+                AppGlobals.api.auth_checkToken(
+                    {},
+                    function (token, user, perms) {
+                        Mojo.log('Auth: %j %j %j', token, perms, user);
+                    }.bind(this),
+                    function () {
+                        this.controller.stageController.pushScene('auth');
+                    }.bind(this)
+                );
             }
 
             this.refreshUploadsQueue();
@@ -317,6 +328,13 @@ HomeAssistant.prototype = (function () { /** @lends HomeAssistant# */
             if (typeof func !== 'undefined') {
                 return func.apply(this, [event]);
             }
+        },
+
+        /**
+         * Push the auth scene to re-authenticate.
+         */
+        handleCommandMenuReauthenticate: function () {
+            return this.controller.stageController.pushScene('auth');
         },
 
         /**
