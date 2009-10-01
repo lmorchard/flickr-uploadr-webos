@@ -1,1 +1,38 @@
-/* Put Application specific CSS here. */
+.scene .palm-page-header .title {
+    padding-left: 16px;
+}
+.scene p {
+    padding: 0px 15px 0px 15px;
+}
+
+.home-scene {
+
+}
+.home-scene #upload-queue .palm-row {
+    position: relative;
+}
+.home-scene #upload-queue .palm-row .thumb {
+    position: absolute;
+    top: 0px; left: 0px;
+    width: 50px; height: 50px;
+    overflow: hidden;
+}
+.home-scene #upload-queue .palm-row .thumb img {
+    width: 50px;
+}
+.home-scene #upload-queue .palm-row .meta {
+    margin-left: 55px;
+}
+.home-scene #upload-queue .palm-row .palm-row-wrapper {
+    background: transparent none no-repeat 98% 6px;
+    height: 40px;
+}
+.home-scene #upload-queue .palm-row .upload-pending {
+    background-image: url(../images/streaming-button.png);
+}
+.home-scene #upload-queue .palm-row .upload-done {
+    background-image: url(../images/checkmark.png);
+}
+.home-scene #upload-queue .palm-row .upload-failed {
+    background-image: url(../images/warning-icon.png);
+}

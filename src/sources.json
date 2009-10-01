@@ -1,17 +1,28 @@
 [
-    {"source": "javascripts\/vendor\/dojo\/dojo.js"},
-    {"source": "javascripts\/vendor\/dojox\/encoding\/base64.js"},
-    {"source": "javascripts\/vendor\/dojox\/encoding\/digests\/_base.js"},
-    {"source": "javascripts\/vendor\/dojox\/encoding\/digests\/MD5.js"},
-    {"source": "javascripts\/Decafbad\/Decafbad.js"},
-    {"source": "javascripts\/Decafbad\/Utils.js"},
-    {"source": "javascripts\/Decafbad\/Chain.js"},
-    {"source": "javascripts\/FlickrUploadr\/FlickrUploadr.js"},
-    {"source": "javascripts\/FlickrUploadr\/TestData.js"},
-    {"source": "javascripts\/FlickrUploadr\/API.js"},
-    {"source": "javascripts\/vendor\/palm\/mediadb-image-service.js"},
-    {"source": "javascripts\/AppGlobals.js"},
-    {"source": "app\/assistants\/app-assistant.js"},
-    {"source": "app\/assistants\/stage-assistant.js"},
-    {"source": "app\/assistants\/home-assistant.js", "scenes": "home" }
+    {"source": "javascripts/vendor/dojo/dojo.js"},
+    {"source": "javascripts/vendor/dojox/encoding/base64.js"},
+    {"source": "javascripts/vendor/dojox/encoding/digests/_base.js"},
+    {"source": "javascripts/vendor/dojox/encoding/digests/MD5.js"},
+    {"source": "javascripts/Decafbad/Decafbad.js"},
+    {"source": "javascripts/Decafbad/Utils.js"},
+    {"source": "javascripts/Decafbad/Chain.js"},
+    {"source": "javascripts/FlickrUploadr/FlickrUploadr.js"},
+    {"source": "javascripts/FlickrUploadr/TestData.js"},
+    {"source": "javascripts/FlickrUploadr/API.js"},
+    {"source": "javascripts/vendor/palm/mediadb-image-service.js"},
+    {"source": "javascripts/AppGlobals.js"},
+    {"source": "app/assistants/app-assistant.js"},
+    {"source": "app/assistants/stage-assistant.js"},
+    {
+        "scenes": "home",
+        "source": "app/assistants/home-assistant.js"
+    },
+    {
+        "scenes": "auth",
+        "source": "app/assistants/auth-assistant.js"
+    },
+    {
+        "scenes": "photo",
+        "source": "app/assistants/photo-assistant.js"
+    }
 ]

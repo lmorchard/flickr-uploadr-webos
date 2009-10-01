@@ -22,12 +22,12 @@ FlickrUploadr.API.prototype = /** @lends FlickrUploadr.API */ {
         this.options = Object.extend({
             
             "api_url":    "http://api.flickr.com/services/rest/",
-            "upload_url": "http://dev.memento.decafbad.com:8882/~lorchard/echolog.php",
-            //"upload_url": "http://dev.memento.decafbad.com/~lorchard/echolog.php",
-            //"upload_url": "http://api.flickr.com/services/upload/",
+            "upload_url": "http://api.flickr.com/services/upload/",
+            "token":      null,
+
+            // This key and secret aren't very
             "key":        "6242a9901ab1632a207b308531bee3c3",
-            "secret":     "11c59547e2ed3886",
-            "token":  null
+            "secret":     "11c59547e2ed3886"
 
         }, options || {});
     },
@@ -45,7 +45,7 @@ FlickrUploadr.API.prototype = /** @lends FlickrUploadr.API */ {
             { parameters: params },
             function (data, resp) {
                 var frob = data.frob._content;
-                var login_url = 'http://flickr.com/services/auth/?' + 
+                var login_url = 'http://m.flickr.com/services/auth/?' + 
                     $H(this.escape_and_sign({
                         api_key: this.options.key,
                         perms:   "delete",
@@ -108,69 +108,44 @@ FlickrUploadr.API.prototype = /** @lends FlickrUploadr.API */ {
     /**
      * Photo upload method.
      *
-     * @param {object}   params         API params
-     * @param {object}   photo          Photo for upload
-     * @param {object}   photo.filename Photo filename
-     * @param {object}   photo.data     Photo image data
-     * @param {object}   photo.type     Photo MIME-Type
-     * @param {function} on_success     success callback, passed user id
-     * @param {function} on_failure     failure callback
+     * @param {object}   params      API params
+     * @param {object}   photo_path  Photo for upload, only local files allowed
+     * @param {function} on_success  success callback, passed user id
+     * @param {function} on_failure  failure callback
      */
-    uploadPhoto: function(params, photo, on_success, on_failure) {
-        
-        var req = new XMLHttpRequest(),
+    uploadPhoto: function(params, photo_path, on_success, on_failure) {
+
+        var controller = Mojo.Controller.stageController.activeScene(),
+            post_params = [],
             s_params = this.escape_and_sign(Object.extend({
                 "format": "json",
                 "nojsoncallback": "1",
                 "api_key": this.options.key,
                 "auth_token": this.options.token
-            }, params || {})),
-            boundary = 't' + ((new Date()).getTime()) + '-' + Math.random(),
-            lines = [];
+            }, params || {}));
 
+        // Convert the set of signed parameters to what postParameters expects.
         $H(s_params).each(function (pair) {
-            lines.push(
-                '--' + boundary,
-                'Content-Disposition: form-data; name="' + pair.key + '"',
-                '',
-                pair.value
-            );
+            post_params.push({
+                "key": pair.key,
+                "data": pair.value,
+                "contentType": 'text/plain'
+            });
         });
-        
-        lines.push(
-            '--' + boundary,
-            'Content-Disposition: form-data; name="photo"; ' + 
-                'filename="' + photo.filename + '"',
-            'Content-Transfer-Encoding: base64',
-            'Content-Type: ' + photo.type,
-            'Content-MD5: ' + dojox.encoding.digests.MD5(
-                photo.data, dojox.encoding.digests.outputTypes.Hex
-            ),
-            '',
-            photo.data,
-            '--' + boundary + '--',
-            ''
-        );
 
-        req.open('POST', this.options.upload_url);
-
-        req.setRequestHeader("Content-Type", 
-            "multipart/form-data; boundary=" + boundary);
-
-        req.onreadystatechange = function (req) {
-            if (this.readyState == 4) {
-                if (this.status == 200) {
-                    Mojo.log('XHR SUCCESS');
-                    on_success(this);
-                } else {
-                    Mojo.log('XHR FAIL');
-                    on_failure(this);
-                }
-            }
-        };
-
-        var post_body = lines.join("\r\n");
-        req.send(post_body);
+        // Queue the upload request with the download manager service.
+        controller.serviceRequest('palm://com.palm.downloadmanager/', {
+            method: 'upload', 
+            parameters: {
+                'url': this.options.upload_url,
+                'fileLabel': 'photo',
+                'fileName': photo_path,
+                'postParameters': post_params,
+                'subscribe': true 
+            },
+            onSuccess: on_success,
+            onFailure: on_failure
+        });
 
     },
 
@@ -211,17 +186,6 @@ FlickrUploadr.API.prototype = /** @lends FlickrUploadr.API */ {
         options.parameters = this.escape_and_sign(options.parameters);
 
         return new Ajax.Request(this.options.api_url, options);
-    },
-
-    /**
-     * Convert a string to byte[]
-     */
-    s2b: function (s) {
-        var b = [];
-        for (var i = 0; i < s.length; ++i) {
-            b.push(s.charCodeAt(i));
-        }
-        return b;
     },
 
     /**

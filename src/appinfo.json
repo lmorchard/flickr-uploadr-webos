@@ -1,8 +1,8 @@
 {
   "id":"com.palm.com.decafbad.flickr-uploadr",
   "version":"0.0.1",
-  "title":"Flickr Uploader",
-  "vendor":"DECAFBAD",
+  "title":"Flickr Uploadr",
+  "vendor":"0xDECAFBAD",
   "vendorurl":"http://decafbad.com/",
   "main":"index.html",
   "icon":"icon.png",

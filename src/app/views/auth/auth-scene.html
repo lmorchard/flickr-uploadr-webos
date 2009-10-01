@@ -1,0 +1,32 @@
+<div class="scene">
+    <div class="palm-page-header multi-line">
+        <div class="palm-page-header-wrapper">
+            <div class="title">
+                <img src="images/logo_flickr.png" />
+            </div>
+            <div class="subtitle" id="subtitle">Approve account access</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <p>
+            To use this app, you must first login to Flickr and
+            approve account access.
+        </p>
+        <p>
+            1. Tap the "Authenticate" button
+            to begin the process in a new browser.
+        </p>
+        <p>
+            2. Once you've approved access in the browser,
+            switch back to this app and tap the "Continue" button to finish.
+        </p>
+        <div x-mojo-element="Button" id="auth-button"></div>
+        <div x-mojo-element="Button" id="continue-button"></div>
+    </div>
+
+    <div id="loading-scrim">
+        <div id="loading-spinner" x-mojo-element="Spinner"></div>
+    </div>
+    
+</div>

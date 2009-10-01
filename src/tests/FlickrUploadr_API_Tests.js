@@ -10,7 +10,7 @@ function FlickrUploadr_API_Tests(tickleFunction) {
 }
 
 // Extra long timeout to account for slow network.
-FlickrUploadr_API_Tests.timeoutInterval = 30000;
+FlickrUploadr_API_Tests.timeoutInterval = 60000;
 
 FlickrUploadr_API_Tests.prototype = (function () {
 
@@ -127,31 +127,14 @@ FlickrUploadr_API_Tests.prototype = (function () {
             // Try uploading a photo
             chain.push(function (chain, token) {
                 
-                var image = FlickrUploadr.TestData.image_data;
-                /*
-                var image=dojox.encoding.base64.decode(FlickrUploadr.TestData.image_data)
-                    .map(function (b) { return String.fromCharCode(b); })
-                    .join('');
-                */
-
-                Mojo.log("IMAGE: %s", image);
-
                 this.api.uploadPhoto(
                     { },
-                    /*
-                    {
-                        "filename": "troopr.jpg",
-                        "type": "image/jpeg",
-                        "data": this.images[0].data
-                    },
-                    */
-                    {
-                        "filename": "avatar_trooper.gif",
-                        "type": "image/gif",
-                        "data": image
-                    },
+                    this.images[0].imagePath,
                     function (resp) {
-                        Mojo.log("UPLOAD YAY %j", resp.responseText);
+                        Mojo.log("UPLOAD YAY %j", resp);
+                        if (resp.completed && '200' == resp.httpCode) {
+                            chain.next();
+                        }
                     },
                     chain.errorCallback('testAuth, photoUpload')
                 );

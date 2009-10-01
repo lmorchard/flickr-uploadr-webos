@@ -29,6 +29,7 @@ else
 	NOVACOM_ID=$(shell novacom -l | grep emulator | head -1 | cut -d' ' -f2)
 	DEVICE=tcp
 	UPDATE_TARGETS=kill-inspector remove restart launch launch-inspector tail-log
+	#UPDATE_TARGETS=remove launch tail-log
 	TESTS_TARGETS=launch-tests tail-log
 endif
 
@@ -54,8 +55,7 @@ tests: $(TESTS_TARGETS)
 update: $(UPDATE_TARGETS)
 
 tail-log:
-	echo '----------------------------------------'; echo; \
-	echo 'tail -15 -f /var/log/messages | grep $(APPID)' | novacom -d $(NOVACOM_ID) open tty://
+	-palm-log -f -d $(DEVICE) $(APPID)
 
 kill:
 	-palm-launch -d $(DEVICE) -c $(APPID)

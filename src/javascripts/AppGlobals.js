@@ -20,6 +20,8 @@ var AppGlobals = (function () { /** @lends AppGlobals */
          * Iniitalize the app global package on launch
          */
         init: function (launch_params) {
+            this.api = new FlickrUploadr.API();
+
             var fw_config = Mojo.Environment.frameworkConfiguration;
             this.tests_enabled = 
                 fw_config.testsEnabled || launch_params.testsEnabled;
