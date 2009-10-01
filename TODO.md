@@ -10,6 +10,9 @@
     * Title
     * Description
     * Tags
+* App support scene
+    * Help
+    * Links to support forum
 
 ## v0.0.3
 
